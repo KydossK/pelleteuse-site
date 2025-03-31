@@ -16,14 +16,16 @@ Route::get('/', function () {
 
 Route::get('/', [HomeController::class, 'index']);
 
-
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
+Route::view('/mentions-legales', 'mentions-legales')->name('mentions');
 
+
+
+//Admin
 
 Route::get('/admin/messages', [AdminMessageController::class, 'index'])->name('admin.messages.index');
 Route::delete('/admin/messages/{message}', [App\Http\Controllers\Admin\MessageController::class, 'destroy'])->name('admin.messages.destroy');
-
 
 Route::get('/admin/photos', [AdminPhotoController::class, 'index'])->name('admin.photos.index');
 Route::post('/admin/photos', [AdminPhotoController::class, 'store'])->name('admin.photos.store');
