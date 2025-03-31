@@ -22,7 +22,7 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 
 
 Route::get('/admin/messages', [AdminMessageController::class, 'index'])->name('admin.messages.index');
-
+Route::delete('/admin/messages/{message}', [App\Http\Controllers\Admin\MessageController::class, 'destroy'])->name('admin.messages.destroy');
 
 
 Route::get('/admin/photos', [AdminPhotoController::class, 'index'])->name('admin.photos.index');

@@ -11,4 +11,13 @@ class AdminMessageController extends Controller
         $messages = Message::latest()->get();
         return view('admin.messages.index', compact('messages'));
     }
+
+    public function destroy(\App\Models\Message $message)
+{
+    $message->delete();
+
+    return redirect()->route('admin.messages.index')
+        ->with('success', 'Message supprimé.');
+}
+
 }

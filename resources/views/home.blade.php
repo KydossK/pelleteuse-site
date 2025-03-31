@@ -90,34 +90,75 @@
         </div>
     </section>
 
-    <!-- FORMULAIRE CONTACT -->
-    <section class="py-12 px-4">
-        <div class="max-w-lg mx-auto">
-            <h2 class="text-xl font-bold mb-6 text-center">Contactez-nous</h2>
-            <form method="POST" action="{{ route('contact.send') }}" class="grid gap-4">
-                @csrf
-                <input type="text" name="name" placeholder="Votre nom" class="p-3 rounded bg-[#fff3d4] text-black" required>
-                <input type="email" name="email" placeholder="Email" class="p-3 rounded bg-[#fff3d4] text-black" required>
-                <textarea name="message" placeholder="Message" rows="4" class="p-3 rounded bg-[#fff3d4] text-black" required></textarea>
-                {!! NoCaptcha::display() !!}
 
-                @if ($errors->has('g-recaptcha-response'))
-                    <p class="text-red-500 text-sm">{{ $errors->first('g-recaptcha-response') }}</p>
-                @endif
 
-                <button type="submit" class="bg-[#DE6823] hover:bg-[#DE9023] text-white py-2 px-4 rounded">Envoyer</button>
+<!-- FORMULAIRE CONTACT -->
+<section class="py-12 px-4">
+    <div class="max-w-lg mx-auto">
+        <h2 class="text-xl font-bold mb-6 text-center">Contactez-nous</h2>
+        <form method="POST" action="{{ route('contact.send') }}" class="grid gap-4">
+            @csrf
+        
+            <input type="text" name="name" placeholder="Votre nom" class="p-3 rounded bg-[#fff3d4] text-black" required>
+            <input type="email" name="email" placeholder="Email" class="p-3 rounded bg-[#fff3d4] text-black" required>
+            <textarea name="message" placeholder="Message" rows="4" class="p-3 rounded bg-[#fff3d4] text-black" required></textarea>
+        
+          {{-- CAPTCHA + Bouton dans un conteneur flex --}}
+<div class="flex items-center gap-4">
+    {{-- Captcha --}}
+    <div id="captcha-container">
+        {!! NoCaptcha::display(['data-callback' => 'onReCaptchaSuccess']) !!}
+        @if ($errors->has('g-recaptcha-response'))
+            <p class="text-red-500 text-sm mt-1">{{ $errors->first('g-recaptcha-response') }}</p>
+        @endif
+    </div>
 
-                @if (session('success'))
-                    <p class="text-green-500 font-semibold mt-2">{{ session('success') }}</p>
-                @endif
-            </form>
-        </div>
-    </section>
+    {{-- Bouton "Envoyer" caché au début --}}
+    <div id="submit-button" class="hidden flex-grow flex justify-center">
+        <button
+            type="submit"
+            class="bg-[#DE6823] hover:bg-[#DE9023] text-white text-xl font-semibold h-[78px] w-[200px] px-12 rounded shadow-lg transition duration-300"
+        >
+            Envoyer
+        </button>
+    </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer class="text-center p-4 bg-[#DE7C23] text-white">
-        &copy; {{ date('Y') }} Pelleteuse Terrassement – Tous droits réservés
-    </footer>
+
+
+        
+            {{-- Message de succès --}}
+            @if (session('success'))
+                <p class="text-green-500 font-semibold mt-2 text-center">{{ session('success') }}</p>
+            @endif
+        </form>
+        
+        
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center p-4 bg-[#DE7C23] text-white">
+    &copy; {{ date('Y') }} Pelleteuse Terrassement – Tous droits réservés
+</footer>
+
+<!-- Script pour afficher le bouton Envoyer après validation du reCAPTCHA -->
+<script>
+    function enableSubmitButton() {
+        document.getElementById('submit-button').classList.remove('hidden');
+    }
+
+    // Callback pour reCAPTCHA
+    function onReCaptchaSuccess() {
+        enableSubmitButton();
+    }
+
+    // Pour reCAPTCHA invisible (si jamais tu passes à ça un jour)
+    // grecaptcha.ready(function() { enableSubmitButton(); });
+</script>
+
+<!-- Script de reCAPTCHA (nécessaire pour activer la lib côté client) -->
+{!! NoCaptcha::renderJs() !!}
+
 </body>
-
 </html>
