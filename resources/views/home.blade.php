@@ -4,13 +4,29 @@
 
 @section('content')
 
-    <!-- HEADER -->
-    <header class="bg-[#DEAC23] text-black py-8 px-4 shadow-lg rounded-b-2xl">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">ECO-SANIT-TP</h1>
-            <p class="text-xl sm:text-2xl">Intervention rapide pour vos petits et moyens travaux, sans les délais des gros acteurs.</p>
-        </div>
-    </header>
+
+<!-- HEADER -->
+<header class="bg-[#DEAC23] text-black py-10 px-4 shadow-lg rounded-b-2xl">
+    <div class="max-w-7xl mx-auto text-center space-y-3">
+        
+        <!-- Nom du site -->
+        <h1 class="text-4xl mb-6 sm:text-5xl font-extrabold tracking-wide">
+            ECO-SANIT-TP
+        </h1>
+
+        <!-- Sous-titre / spécialité -->
+        <h2 class="text-lg sm:text-xl font-medium text-gray-800">
+            Travaux à la mini-pelleteuse 800kg – terrassement, dessouchage, assainissement, nivellement...
+        </h2>
+
+        <!-- Accroche principale -->
+        <p class="text-xl sm:text-2xl ">
+            Intervention rapide pour vos petits et moyens travaux, sans les délais des gros acteurs.
+        </p>
+    </div>
+</header>
+
+
 
     <!-- REALISATIONS -->
     <section class="py-12 px-4 sm:px-6 lg:px-8">
